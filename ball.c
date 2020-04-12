@@ -15,6 +15,7 @@ struct Ball initBall(int serve){
 	ball.vel.x = 1*serve;
 	ball.vel.y = 0;
 	ball.offside = 0;
+	ball.pauseTime = 120;
 	return ball;
 }
 struct Vector2f hitBall(struct Ball ball, struct Player player){
@@ -27,6 +28,12 @@ struct Vector2f hitBall(struct Ball ball, struct Player player){
 }
 
 struct Ball updateBall(struct Ball ball, struct Player player1, struct Player player2){
+	if(ball.pauseTime>0){
+		ball.pauseTime-=1;
+		ball.ppos.x = ball.pos.x;
+		ball.ppos.y = ball.pos.y;
+		return ball;
+	}
 	if (ball.vel.x<0 && check_ball_hit(ball, player1)){
 		ball.vel = hitBall(ball, player1);
 	}

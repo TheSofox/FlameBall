@@ -30,6 +30,7 @@ struct Ball{
 	struct Vector2 ppos;
 	struct Vector2f pos;
 	struct Vector2f vel;
+	int pauseTime;
 	int offside;
 };
 

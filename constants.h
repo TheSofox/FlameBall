@@ -15,6 +15,9 @@
 #define SWING_COOLDOWN  0
 #define SWING_TIME  10
 
+
+#define SCORE_LIMIT  2
+
 /*
 Notes regarding SGDK API changes:
 

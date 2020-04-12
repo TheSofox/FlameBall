@@ -197,8 +197,14 @@ int main(){
 					gameState.p2s+=1;
 					gameState.serve = 1;
 				}
+
 				ball = initBall(gameState.serve);
 				//int t = true ? 1:3;
+			}
+			if(ball.pauseTime>0){
+				VDP_drawText("Ready?", 17, 12);
+			} else {	
+				VDP_fillTileMapRect(BG_A, TILE_ATTR_FULL(PAL3,0,FALSE,FALSE,1),17,12,6,1);
 			}
 			
 			SPR_setHFlip (ballSprite, ball.vel.x>0);
