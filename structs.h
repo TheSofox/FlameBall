@@ -37,6 +37,7 @@ struct GameState{
 	int p1s;
 	int p2s;
 	int serve;
+	int screen;
 };
 
 
