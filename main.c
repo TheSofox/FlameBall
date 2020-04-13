@@ -90,6 +90,7 @@ int main(){
 	u16 joyInput1;
 	u16 joyInput2;
 	
+	SND_startPlay_4PCM_ENV(soundTheme, sizeof(soundTheme), SOUND_PCM_CH2, FALSE);
 	while(1)
 	{
 		if(gameState.screen == 1){
@@ -124,27 +125,38 @@ int main(){
 				player1 = updatePlayer(player1, joyInput1);
 				player2 = updatePlayer(player2, joyInput2);
 				
-				//VDP_drawText(3, 1, 2);
 				
 				ball = updateBall(ball, player1, player2);
 				
+				if(player1.hitFrame || player2.hitFrame){
+					if(ball.justHit)
+						SND_startPlay_4PCM_ENV(soundSwipe, sizeof(soundSwipe), SOUND_PCM_CH2, FALSE);
+					else
+						SND_startPlay_4PCM_ENV(soundSwoosh, sizeof(soundSwoosh), SOUND_PCM_CH2, FALSE);
+
+				}
+				
 				if(ball.offside!=0){
+					
+                    SND_startPlay_4PCM_ENV(soundMiss, sizeof(soundMiss), SOUND_PCM_CH2, FALSE);
 					if(ball.offside>0){
 						player1 = player_add_score(player1);
 						gameState.serve = 1;
-						if(player1.score>=2){
+						if(player1.score>=SCORE_LIMIT){
 							player1 = player_set_winner(player1);
 							player2 = player_set_loser(player2);
 							gameState.winScreen = TRUE;
+							SND_startPlay_4PCM_ENV(soundVictory, sizeof(soundVictory), SOUND_PCM_CH2, FALSE);
 						}
 					}
 					if(ball.offside<0){
 						player2 = player_add_score(player2);
 						gameState.serve = -1;
-						if(player2.score>=2){
+						if(player2.score>=SCORE_LIMIT){
 							player2 = player_set_winner(player2);
 							player1 = player_set_loser(player1);
 							gameState.winScreen = TRUE;
+							SND_startPlay_4PCM_ENV(soundVictory, sizeof(soundVictory), SOUND_PCM_CH2, FALSE);
 						}
 					}
 					//
@@ -162,7 +174,7 @@ int main(){
 				drawInt(player1.score,18,2,1);
 				drawInt(player2.score,22,2,1);
 
-				
+
 				SPR_setHFlip (ballSprite, ball.vel.x>0);
 				SPR_setPosition(ballSprite, ball.ppos.x,ball.ppos.y);
 				

@@ -33,6 +33,7 @@ struct Ball{
 	struct Vector2f vel;
 	int pauseTime;
 	int offside;
+	bool justHit;
 };
 
 struct GameState{

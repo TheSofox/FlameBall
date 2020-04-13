@@ -34,6 +34,7 @@ struct Player updatePlayer(struct Player player, u16 input){
 		player.vel.y = 0;
 	player.pos.y += player.vel.y;
 	
+    
 	
 	if(player.pos.y<0){
 		player.pos.y = 0;

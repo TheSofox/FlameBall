@@ -16,7 +16,7 @@
 #define SWING_TIME  10
 
 
-#define SCORE_LIMIT  2
+#define SCORE_LIMIT  5
 
 /*
 Notes regarding SGDK API changes:

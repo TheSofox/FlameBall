@@ -16,6 +16,7 @@ struct Ball initBall(int serve){
 	ball.vel.y = 0;
 	ball.offside = 0;
 	ball.pauseTime = 120;
+	ball.justHit = FALSE;
 	return ball;
 }
 struct Vector2f hitBall(struct Ball ball, struct Player player){
@@ -23,7 +24,6 @@ struct Vector2f hitBall(struct Ball ball, struct Player player){
 	ball.vel.y += player.vel.y/2;
 	
 	ball.vel.y += ((ball.pos.y + 4.0f) - (player.pos.y + 16.0f))/20;
-	
 	return ball.vel;
 }
 
@@ -34,11 +34,14 @@ struct Ball updateBall(struct Ball ball, struct Player player1, struct Player pl
 		ball.ppos.y = ball.pos.y;
 		return ball;
 	}
+	ball.justHit = FALSE;
 	if (ball.vel.x<0 && check_ball_hit(ball, player1)){
 		ball.vel = hitBall(ball, player1);
+		ball.justHit = TRUE;
 	}
 	if (ball.vel.x>0 && check_ball_hit(ball, player2)){
 		ball.vel = hitBall(ball, player2);
+		ball.justHit = TRUE;
 	}
 	if (ball.pos.y <= 0){
 		ball.vel.y *= -1;
