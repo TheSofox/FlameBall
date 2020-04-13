@@ -24,6 +24,7 @@ struct Player{
 	bool hitFrame;
 	int anim;
 	u16 lastInput;
+	int score;
 };
 
 struct Ball{
@@ -35,10 +36,9 @@ struct Ball{
 };
 
 struct GameState{
-	int p1s;
-	int p2s;
 	int serve;
 	int screen;
+	bool winScreen;
 };
 
 
